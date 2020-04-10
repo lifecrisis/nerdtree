@@ -42,8 +42,8 @@ function! s:MenuController.showMenu()
     endtry
 
     if self.selection != -1
-        let l:m = self._current()
-        call l:m.execute()
+        redraw!
+        call self._current().execute()
     endif
 endfunction
 

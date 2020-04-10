@@ -350,17 +350,7 @@ function! NERDTreeRevealFileLinux()
         return
     endif
 
-    " Handle the edge case of "/", which has no parent.
-    if l:node.path.str() ==# '/'
-        call system('xdg-open /')
-        return
-    endif
-
-    if empty(l:node.parent)
-        return
-    endif
-
-    call system('xdg-open ' . shellescape(l:node.parent.path.str()))
+    call system('xdg-open ' . shellescape(l:node.path.getParent().str()))
 endfunction
 
 " FUNCTION: NERDTreeExecuteFileLinux() {{{1

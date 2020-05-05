@@ -367,14 +367,19 @@ function! s:TreeDirNode.hasVisibleChildren()
 endfunction
 
 " FUNCTION: TreeDirNode.isCascadable() {{{1
-" true if this dir has only one visible child - which is also a dir
+" Return 1 if this directory is not the tree root and has only one visible
+" child which is also a directory.
 function! s:TreeDirNode.isCascadable()
-    if g:NERDTreeCascadeSingleChildDir == 0
+    if !g:NERDTreeCascadeSingleChildDir
         return 0
     endif
 
-    let c = self.getVisibleChildren()
-    return len(c) == 1 && c[0].path.isDirectory
+    if self.isRoot()
+        return 0
+    endif
+
+    let l:c = self.getVisibleChildren()
+    return len(l:c) == 1 && l:c[0].path.isDirectory
 endfunction
 
 " FUNCTION: TreeDirNode._initChildren() {{{1
